@@ -1,6 +1,6 @@
 function [blendA, blendB] = exercicio2(NG)
 
-% NG: numero do grupo
+% NG: 3
 
 % nao alterar: inicio
 es = 1;
@@ -10,7 +10,14 @@ pkg load optim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% digite seu codigo aqui
+% Sistema de equações baseado nos requisitos
+A = [0.30, 0.20; 
+     0.20, 0.25; 
+     0.25, 0.30];
+b = [15; 10; 12];
+
+% Resolver o sistema de equações
+x = A \ b;
 
 
 % mantenha essas duas linhas finais
