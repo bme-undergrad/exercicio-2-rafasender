@@ -10,27 +10,29 @@ pkg load optim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 1. Vetor de custos (funcao objetivo)
-c = [10; (2 * NG)];
+f = [10, NG*2]'; #' vetor é coluna
+x0 = [1,1];
 
-% 2. Matriz de restricoes de desigualdade (A*x <= b)
-A = [-0.30, -0.20;  % Restricao de Polietileno
-     -0.20, -0.25;  % Restricao de PLA
-     -0.25, -0.30]; % Restricao de Polipropileno
+A = [0.3, 0.2;
+     0.2, 0.25;
+     0.25, 0.3];
 
-% 3. Vetor de limites das restricoes de desigualdade
-b = [-15; -10; -12];
+b=[15;
+  10;
+  12];
 
-% 4. Limites inferiores para as variaveis (x1 >= 0, x2 >= 0)
-lb = [0; 0];
+Aeq = zeros(1,2);
+beq = 0;
+x_min_valores = zeros(2,1);
+x_max_valores = [20; 50];
 
-% 5. Resolvendo o problema de programacao linear
-% A correção está aqui: adicionamos '[]' para o argumento 'ub' (limite superior)
-x = linprog(c, A, b, [], [], lb, []);
+[x] = linprog(f, -A, -b, Aeq, beq, lb=x_min_valores, ub=x_max_valores)
+
 
 % mantenha essas duas linhas finais
 blendA = x(1);
 blendB = x(2);
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
